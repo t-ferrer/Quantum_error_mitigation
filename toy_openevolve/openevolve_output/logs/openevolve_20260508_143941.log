@@ -1,0 +1,89 @@
+2026-05-08 14:39:41,219 - openevolve.controller - INFO - Logging to openevolve_output\logs\openevolve_20260508_143941.log
+2026-05-08 14:39:41,271 - openevolve.controller - INFO - Set random seed to 42 for reproducibility
+2026-05-08 14:39:41,884 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: gemini-2.5-flash
+2026-05-08 14:39:42,377 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: gemini-2.5-flash-lite
+2026-05-08 14:39:42,377 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gemini-2.5-flash (weight: 0.70), gemini-2.5-flash-lite (weight: 0.30)
+2026-05-08 14:39:43,332 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gemini-2.5-flash (weight: 0.70), gemini-2.5-flash-lite (weight: 0.30)
+2026-05-08 14:39:43,332 - openevolve.prompt.sampler - INFO - Initialized prompt sampler
+2026-05-08 14:39:43,345 - openevolve.prompt.sampler - INFO - Set custom templates: system=evaluator_system_message, user=None
+2026-05-08 14:39:43,345 - openevolve.database - INFO - Initialized program database with 0 programs
+2026-05-08 14:39:43,351 - openevolve.evaluator - INFO - Successfully loaded evaluation function from evaluator.py
+2026-05-08 14:39:43,354 - openevolve.evaluator - INFO - Initialized evaluator with evaluator.py
+2026-05-08 14:39:43,354 - openevolve.controller - INFO - Initialized OpenEvolve with initial_program.py
+2026-05-08 14:39:43,354 - openevolve.controller - INFO - Adding initial program to database
+2026-05-08 14:39:43,413 - openevolve.evaluator - INFO - Evaluated program c1612fa7-d6eb-4b73-9848-758fe643fbac in 0.06s: neg_mean_error=-0.2288, neg_max_error=-0.3006, neg_std_error=-0.0229
+2026-05-08 14:39:43,416 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 5, 'diversity': 0}
+2026-05-08 14:39:43,440 - openevolve.process_parallel - INFO - Initialized process parallel controller with 1 workers
+2026-05-08 14:39:43,440 - openevolve.process_parallel - INFO - Set max None tasks per child
+2026-05-08 14:39:43,442 - openevolve.process_parallel - INFO - Started process pool with 1 processes
+2026-05-08 14:39:43,444 - openevolve.controller - INFO - Using island-based evolution with 3 islands
+2026-05-08 14:39:43,444 - openevolve.database - INFO - Island Status:
+2026-05-08 14:39:43,444 - openevolve.database - INFO -  * Island 0: 1 programs, best=-0.1841, avg=-0.1841, diversity=0.00, gen=0 (best: c1612fa7-d6eb-4b73-9848-758fe643fbac)
+2026-05-08 14:39:43,444 - openevolve.database - INFO -    Island 1: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-08 14:39:43,444 - openevolve.database - INFO -    Island 2: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-08 14:39:43,444 - openevolve.process_parallel - INFO - Starting process-based evolution from iteration 1 for 100 iterations (total: 101)
+2026-05-08 14:39:43,565 - openevolve.process_parallel - INFO - Early stopping disabled
+2026-05-08 14:40:05,555 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 9, 'diversity': 5}
+2026-05-08 14:40:05,557 - openevolve.process_parallel - INFO - Iteration 1: Program d9e7de3b-3a42-43c0-8abe-888eeeec29b3 (parent: c1612fa7-d6eb-4b73-9848-758fe643fbac) completed in 18.09s
+2026-05-08 14:40:05,557 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573
+2026-05-08 14:40:23,510 - openevolve.process_parallel - WARNING - Iteration 2 error: No valid diffs found in response
+2026-05-08 14:40:43,797 - openevolve.process_parallel - WARNING - Iteration 3 error: No valid diffs found in response
+2026-05-08 14:40:56,776 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 0, 'diversity': 5}
+2026-05-08 14:40:56,786 - openevolve.process_parallel - INFO - Iteration 4: Program 3a9c567c-2444-450a-b9e0-82b6e01a9c9e (parent: c1612fa7-d6eb-4b73-9848-758fe643fbac) completed in 12.99s
+2026-05-08 14:40:56,788 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.2288, neg_max_error=-0.3006, neg_std_error=-0.0229
+2026-05-08 14:41:09,981 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 9, 'diversity': 0}
+2026-05-08 14:41:09,983 - openevolve.process_parallel - INFO - Iteration 5: Program 63d692cb-3513-4571-b678-a0579a9d32e3 (parent: c1612fa7-d6eb-4b73-9848-758fe643fbac) completed in 13.20s
+2026-05-08 14:41:09,983 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573
+2026-05-08 14:41:32,930 - openevolve.process_parallel - WARNING - Iteration 6 error: No valid diffs found in response
+2026-05-08 14:41:53,409 - openevolve.process_parallel - WARNING - Iteration 7 error: No valid diffs found in response
+2026-05-08 14:42:17,978 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 9, 'diversity': 9}
+2026-05-08 14:42:17,979 - openevolve.process_parallel - INFO - Iteration 8: Program 966cd03e-14ab-4763-a5be-5e00fb4d14b0 (parent: 63d692cb-3513-4571-b678-a0579a9d32e3) completed in 24.55s
+2026-05-08 14:42:17,979 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573
+2026-05-08 14:42:39,284 - openevolve.process_parallel - WARNING - Iteration 9 error: No valid diffs found in response
+2026-05-08 14:42:49,808 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 0}
+2026-05-08 14:42:49,809 - openevolve.process_parallel - INFO - Iteration 10: Program b26ca357-3ef1-41ac-8e71-e92c4f1f66ae (parent: c1612fa7-d6eb-4b73-9848-758fe643fbac) completed in 10.51s
+2026-05-08 14:42:49,809 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573
+2026-05-08 14:43:10,618 - openevolve.process_parallel - WARNING - Iteration 11 error: No valid diffs found in response
+2026-05-08 14:43:23,154 - openevolve.database - INFO - New MAP-Elites cell occupied in island 2: {'complexity': 0, 'diversity': 8}
+2026-05-08 14:43:23,154 - openevolve.process_parallel - INFO - Iteration 12: Program 190f7ac3-a999-4894-82f8-5c8d9cd8e6c2 (parent: 3a9c567c-2444-450a-b9e0-82b6e01a9c9e) completed in 12.54s
+2026-05-08 14:43:23,156 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.2288, neg_max_error=-0.3006, neg_std_error=-0.0229
+2026-05-08 14:43:36,442 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 0, 'diversity': 8}
+2026-05-08 14:43:36,442 - openevolve.process_parallel - INFO - Iteration 13: Program 1d295992-5251-4f34-ba77-73dd25ca2f43 (parent: 3a9c567c-2444-450a-b9e0-82b6e01a9c9e) completed in 13.27s
+2026-05-08 14:43:36,442 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.2288, neg_max_error=-0.3006, neg_std_error=-0.0229
+2026-05-08 14:43:57,524 - openevolve.process_parallel - WARNING - Iteration 14 error: No valid diffs found in response
+2026-05-08 14:44:17,995 - openevolve.process_parallel - WARNING - Iteration 15 error: No valid diffs found in response
+2026-05-08 14:44:34,245 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 9, 'diversity': 9}
+2026-05-08 14:44:34,245 - openevolve.process_parallel - INFO - Iteration 16: Program a7e4494d-b4d5-450d-a760-e345aa573d12 (parent: b26ca357-3ef1-41ac-8e71-e92c4f1f66ae) completed in 16.23s
+2026-05-08 14:44:34,245 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.8825, neg_max_error=-0.9271, neg_std_error=-0.0226
+2026-05-08 14:45:11,164 - openevolve.process_parallel - INFO - Iteration 17: Program de0041cd-4195-485c-8693-bb2ebbe1b493 (parent: 966cd03e-14ab-4763-a5be-5e00fb4d14b0) completed in 36.92s
+2026-05-08 14:45:11,166 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573
+2026-05-08 14:45:32,643 - openevolve.process_parallel - WARNING - Iteration 18 error: No valid diffs found in response
+2026-05-08 14:45:53,299 - openevolve.process_parallel - WARNING - Iteration 19 error: No valid diffs found in response
+2026-05-08 14:46:19,357 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 7, 'diversity': 4}
+2026-05-08 14:46:19,357 - openevolve.process_parallel - INFO - Iteration 20: Program 9ebd5173-e96d-4ea3-8528-331f1de1a980 (parent: 966cd03e-14ab-4763-a5be-5e00fb4d14b0) completed in 26.07s
+2026-05-08 14:46:19,361 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573
+2026-05-08 14:46:26,587 - openevolve.database - INFO - New MAP-Elites cell occupied in island 2: {'complexity': 2, 'diversity': 1}
+2026-05-08 14:46:26,587 - openevolve.process_parallel - INFO - Iteration 21: Program e56982f5-c2b8-407f-9079-386c54145812 (parent: 190f7ac3-a999-4894-82f8-5c8d9cd8e6c2) completed in 7.24s
+2026-05-08 14:46:26,587 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573
+2026-05-08 14:46:48,539 - openevolve.process_parallel - WARNING - Iteration 22 error: No valid diffs found in response
+2026-05-08 14:47:08,186 - openevolve.process_parallel - WARNING - Iteration 23 error: No valid diffs found in response
+2026-05-08 14:47:30,047 - openevolve.process_parallel - WARNING - Iteration 24 error: No valid diffs found in response
+2026-05-08 14:47:39,759 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 0, 'diversity': 3}
+2026-05-08 14:47:39,766 - openevolve.process_parallel - INFO - Iteration 25: Program a00c79e0-e1ce-4ca9-b1c1-53909a04ed22 (parent: 3a9c567c-2444-450a-b9e0-82b6e01a9c9e) completed in 9.71s
+2026-05-08 14:47:39,766 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.2288, neg_max_error=-0.3006, neg_std_error=-0.0229
+2026-05-08 14:48:00,819 - openevolve.process_parallel - WARNING - Iteration 26 error: No valid diffs found in response
+2026-05-08 14:48:10,826 - openevolve.database - INFO - New MAP-Elites cell occupied in island 2: {'complexity': 6, 'diversity': 2}
+2026-05-08 14:48:10,826 - openevolve.process_parallel - INFO - Iteration 27: Program aae0d0a6-02f0-4d42-9043-419f7c3d7d59 (parent: e56982f5-c2b8-407f-9079-386c54145812) completed in 10.00s
+2026-05-08 14:48:10,826 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573
+2026-05-08 14:48:20,359 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 7, 'diversity': 4}
+2026-05-08 14:48:20,365 - openevolve.process_parallel - INFO - Iteration 28: Program 7563246c-a341-4f7a-82c0-b44922bf5d53 (parent: d9e7de3b-3a42-43c0-8abe-888eeeec29b3) completed in 9.52s
+2026-05-08 14:48:20,365 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.9578, neg_max_error=-1.0000, neg_std_error=-0.0558
+2026-05-08 14:48:42,200 - openevolve.process_parallel - WARNING - Iteration 29 error: No valid diffs found in response
+2026-05-08 14:48:51,861 - openevolve.controller - INFO - Received signal 2, initiating graceful shutdown...
+2026-05-08 14:48:51,862 - openevolve.process_parallel - INFO - Graceful shutdown requested...
+2026-05-08 14:48:51,862 - openevolve.process_parallel - INFO - Shutdown requested, canceling remaining evaluations...
+2026-05-08 14:48:51,902 - openevolve.controller - INFO - Evolution stopped due to shutdown request
+2026-05-08 14:49:40,876 - openevolve.process_parallel - INFO - Stopped process pool
+2026-05-08 14:49:40,877 - openevolve.controller - INFO - Using tracked best program: c1612fa7-d6eb-4b73-9848-758fe643fbac
+2026-05-08 14:49:40,877 - openevolve.controller - INFO - Evolution complete. Best program has metrics: neg_mean_error=-0.2288, neg_max_error=-0.3006, neg_std_error=-0.0229
+2026-05-08 14:49:40,901 - openevolve.controller - INFO - Saved best program to openevolve_output\best\best_program.py with program info to openevolve_output\best\best_program_info.json

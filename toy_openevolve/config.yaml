@@ -1,0 +1,51 @@
+# Config OpenEvolve pour le toy DZNE
+# API: Gemini 2.5 Flash via tier gratuit Google AI Studio
+# Pour obtenir la clé: https://aistudio.google.com/apikey
+# puis: export OPENAI_API_KEY="ta-clé"
+
+llm:
+  api_base: "https://generativelanguage.googleapis.com/v1beta/openai/"
+  primary_model: "gemini-2.5-flash"
+  primary_model_weight: 0.7
+  secondary_model: "gemini-2.5-flash-lite"
+  secondary_model_weight: 0.3
+  temperature: 0.7
+  max_tokens: 4096
+
+prompt:
+  system_message: |
+    Tu es un expert en quantum error mitigation, spécialisé en
+    Zero-Noise Extrapolation. Tu améliores la fonction
+    `extrapolate_to_zero_noise`.
+
+    PHYSIQUE: Le bruit suit un comportement EXPONENTIEL typique du
+    bruit dépolarisant, E(λ) ≈ E* * exp(-c·λ). Un fit polynomial de
+    degré élevé (>2) va overfitter le bruit de sampling et DIVERGER
+    quand on extrapole à λ=0.
+
+    APPROCHES PROMETTEUSES (par ordre):
+    1. Fit exponentiel: scipy.optimize.curve_fit avec ansatz a + b·exp(-c·x)
+    2. Fit en log: log(E) ~ linéaire en λ, puis exp() de l'extrapolation
+    3. Richardson exponentiel adaptatif
+
+    À ÉVITER:
+    - polyfit de degré ≥ 3 (instable)
+    - extrapolations sans contrainte sur le signe ou la magnitude
+
+    Garde la signature de la fonction inchangée. Retourne TOUJOURS
+    un float fini (catch les ValueError de curve_fit).
+
+database:
+  population_size: 30
+  num_islands: 3
+  archive_size: 50
+
+evolution:
+  checkpoint_interval: 10
+  log_level: "INFO"
+  diff_based_evolution: false
+  allow_full_rewrites: true
+
+evaluator:
+  timeout: 60
+  cascade_evaluation: false

@@ -1,0 +1,23 @@
+# Quantum Error Mitigation benchmark suite — pinned to the versions this was developed on.
+# Python 3.12.  Install with:  python -m venv .venv && .venv/Scripts/pip install -r requirements.txt
+#
+# Core quantum stack
+qiskit==2.4.1
+qiskit-aer==0.17.2
+mitiq==1.0.0
+cirq-core==1.6.1          # Mitiq's internal IR; also imported directly in qem/
+
+# Scientific Python
+numpy==2.2.6
+scipy==1.17.1             # scipy.optimize.linprog (HiGHS) — custom L1 PEC solver
+pandas==2.3.3
+networkx==3.6.1           # mirror-circuit connectivity graph
+matplotlib==3.10.9        # notebook plots
+
+# Notebooks
+jupyter==1.1.1
+notebook==7.5.6
+ipykernel==7.2.0
+
+# Optional — only for toy_openevolve/ (LLM-guided extrapolation experiment)
+openevolve==0.2.27

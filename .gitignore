@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Generated benchmark result cache (pickled run_benchmark outputs)
+notebooks/qem_cache/
+
+# Claude Code harness state
+.claude/
+
+# One-off / editor / OS cruft
+*.bak
+# MS Office lock/owner files
+~$*
+.DS_Store
+
+# Presentations: keep ONLY the final deck in git; the rest stay local
+presentations/*
+!presentations/Presentation_QEM_3_final.pdf

@@ -1,0 +1,62 @@
+2026-05-08 14:55:25,662 - openevolve.controller - INFO - Logging to openevolve_output\logs\openevolve_20260508_145525.log
+2026-05-08 14:55:25,677 - openevolve.controller - INFO - Set random seed to 42 for reproducibility
+2026-05-08 14:55:26,224 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: gemini-2.5-flash
+2026-05-08 14:55:26,718 - openevolve.llm.openai - INFO - Initialized OpenAI LLM with model: gemini-2.5-flash-lite
+2026-05-08 14:55:26,718 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gemini-2.5-flash (weight: 0.70), gemini-2.5-flash-lite (weight: 0.30)
+2026-05-08 14:55:27,705 - openevolve.llm.ensemble - INFO - Initialized LLM ensemble with models: gemini-2.5-flash (weight: 0.70), gemini-2.5-flash-lite (weight: 0.30)
+2026-05-08 14:55:27,711 - openevolve.prompt.sampler - INFO - Initialized prompt sampler
+2026-05-08 14:55:27,711 - openevolve.prompt.sampler - INFO - Set custom templates: system=evaluator_system_message, user=None
+2026-05-08 14:55:27,711 - openevolve.database - INFO - Initialized program database with 0 programs
+2026-05-08 14:55:27,728 - openevolve.evaluator - INFO - Successfully loaded evaluation function from evaluator.py
+2026-05-08 14:55:27,730 - openevolve.evaluator - INFO - Initialized evaluator with evaluator.py
+2026-05-08 14:55:27,731 - openevolve.controller - INFO - Initialized OpenEvolve with initial_program.py
+2026-05-08 14:55:27,733 - openevolve.controller - INFO - Adding initial program to database
+2026-05-08 14:55:27,764 - openevolve.evaluator - INFO - Evaluated program f093f493-3c9c-453b-95af-c12a392d9d59 in 0.03s: neg_mean_error=-0.2288, neg_max_error=-0.3006, neg_std_error=-0.0229, combined_score=-0.3190
+2026-05-08 14:55:27,764 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 5, 'diversity': 0}
+2026-05-08 14:55:27,768 - openevolve.process_parallel - INFO - Initialized process parallel controller with 1 workers
+2026-05-08 14:55:27,768 - openevolve.process_parallel - INFO - Set max None tasks per child
+2026-05-08 14:55:27,768 - openevolve.process_parallel - INFO - Started process pool with 1 processes
+2026-05-08 14:55:27,768 - openevolve.controller - INFO - Using island-based evolution with 3 islands
+2026-05-08 14:55:27,768 - openevolve.database - INFO - Island Status:
+2026-05-08 14:55:27,771 - openevolve.database - INFO -  * Island 0: 1 programs, best=-0.3190, avg=-0.3190, diversity=0.00, gen=0 (best: f093f493-3c9c-453b-95af-c12a392d9d59)
+2026-05-08 14:55:27,771 - openevolve.database - INFO -    Island 1: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-08 14:55:27,771 - openevolve.database - INFO -    Island 2: 0 programs, best=0.0000, avg=0.0000, diversity=0.00, gen=0
+2026-05-08 14:55:27,771 - openevolve.process_parallel - INFO - Starting process-based evolution from iteration 1 for 100 iterations (total: 101)
+2026-05-08 14:55:27,891 - openevolve.process_parallel - INFO - Early stopping disabled
+2026-05-08 14:55:57,124 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 9, 'diversity': 5}
+2026-05-08 14:55:57,142 - openevolve.process_parallel - INFO - Iteration 1: Program 0100e8c1-8f5a-4f94-99eb-73fa63a2c61e (parent: f093f493-3c9c-453b-95af-c12a392d9d59) completed in 25.96s
+2026-05-08 14:55:57,142 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.0942, neg_max_error=-0.4225, neg_std_error=-0.0796, combined_score=-0.2210
+2026-05-08 14:56:08,286 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 8, 'diversity': 0}
+2026-05-08 14:56:08,288 - openevolve.process_parallel - INFO - Iteration 2: Program 81df4f69-5bff-4a02-94dc-f4caba699814 (parent: f093f493-3c9c-453b-95af-c12a392d9d59) completed in 11.16s
+2026-05-08 14:56:08,288 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573, combined_score=-1.8193
+2026-05-08 14:56:30,777 - openevolve.process_parallel - WARNING - Iteration 3 error: No valid diffs found in response
+2026-05-08 14:56:43,412 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 9, 'diversity': 9}
+2026-05-08 14:56:43,427 - openevolve.process_parallel - INFO - Iteration 4: Program 004865f4-935d-4300-bdf0-59b1e9e495f2 (parent: f093f493-3c9c-453b-95af-c12a392d9d59) completed in 12.63s
+2026-05-08 14:56:43,432 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.0942, neg_max_error=-0.4225, neg_std_error=-0.0796, combined_score=-0.2210
+2026-05-08 14:56:58,308 - openevolve.database - INFO - New MAP-Elites cell occupied in island 1: {'complexity': 9, 'diversity': 9}
+2026-05-08 14:56:58,310 - openevolve.process_parallel - INFO - Iteration 5: Program 7f51aa7f-fa1a-4d53-b07a-453312173a1c (parent: 81df4f69-5bff-4a02-94dc-f4caba699814) completed in 14.88s
+2026-05-08 14:56:58,310 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573, combined_score=-1.8193
+2026-05-08 14:57:20,127 - openevolve.process_parallel - WARNING - Iteration 6 error: No valid diffs found in response
+2026-05-08 14:57:40,831 - openevolve.process_parallel - WARNING - Iteration 7 error: No valid diffs found in response
+2026-05-08 14:57:47,827 - openevolve.process_parallel - INFO - Iteration 8: Program ab6a4a75-de3a-4a1b-90ef-75a85711feb3 (parent: 81df4f69-5bff-4a02-94dc-f4caba699814) completed in 7.02s
+2026-05-08 14:57:47,828 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-1.0551, neg_max_error=-2.5472, neg_std_error=-0.2573, combined_score=-1.8193
+2026-05-08 14:58:09,069 - openevolve.process_parallel - WARNING - Iteration 9 error: No valid diffs found in response
+2026-05-08 14:58:24,276 - openevolve.database - INFO - New MAP-Elites cell occupied in island 0: {'complexity': 9, 'diversity': 6}
+2026-05-08 14:58:24,287 - openevolve.process_parallel - INFO - Iteration 10: Program ccbc056a-3f4a-4520-ba8a-c7ceff8cecae (parent: 0100e8c1-8f5a-4f94-99eb-73fa63a2c61e) completed in 15.21s
+2026-05-08 14:58:24,290 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.0788, neg_max_error=-0.4225, neg_std_error=-0.0821, combined_score=-0.2056
+2026-05-08 14:58:55,683 - openevolve.process_parallel - WARNING - Iteration 11 error: No valid diffs found in response
+2026-05-08 14:59:07,761 - openevolve.database - INFO - New MAP-Elites cell occupied in island 2: {'complexity': 8, 'diversity': 2}
+2026-05-08 14:59:07,766 - openevolve.process_parallel - INFO - Iteration 12: Program 743ac6ab-4ee1-4bc8-bd04-ce62fdad19db (parent: 0100e8c1-8f5a-4f94-99eb-73fa63a2c61e) completed in 12.07s
+2026-05-08 14:59:07,768 - openevolve.process_parallel - INFO - Metrics: neg_mean_error=-0.0942, neg_max_error=-0.4225, neg_std_error=-0.0796, combined_score=-0.2210
+2026-05-08 14:59:41,110 - openevolve.process_parallel - WARNING - Iteration 13 error: LLM generation failed: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash-lite\nPlease retry in 19.277055671s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'model': 'gemini-2.5-flash-lite', 'location': 'global'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '19s'}]}}]
+2026-05-08 15:00:01,323 - openevolve.process_parallel - WARNING - Iteration 14 error: No valid diffs found in response
+2026-05-08 15:00:54,252 - openevolve.process_parallel - WARNING - Iteration 15 error: LLM generation failed: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash\nPlease retry in 6.163751368s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '6s'}]}}]
+2026-05-08 15:01:28,260 - openevolve.process_parallel - WARNING - Iteration 16 error: LLM generation failed: Error code: 429 - [{'error': {'code': 429, 'message': 'You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://ai.google.dev/gemini-api/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 20, model: gemini-2.5-flash-lite\nPlease retry in 32.059387114s.', 'status': 'RESOURCE_EXHAUSTED', 'details': [{'@type': 'type.googleapis.com/google.rpc.Help', 'links': [{'description': 'Learn more about Gemini API quotas', 'url': 'https://ai.google.dev/gemini-api/docs/rate-limits'}]}, {'@type': 'type.googleapis.com/google.rpc.QuotaFailure', 'violations': [{'quotaMetric': 'generativelanguage.googleapis.com/generate_content_free_tier_requests', 'quotaId': 'GenerateRequestsPerDayPerProjectPerModel-FreeTier', 'quotaDimensions': {'location': 'global', 'model': 'gemini-2.5-flash-lite'}, 'quotaValue': '20'}]}, {'@type': 'type.googleapis.com/google.rpc.RetryInfo', 'retryDelay': '32s'}]}}]
+2026-05-08 15:02:03,008 - openevolve.controller - INFO - Received signal 2, initiating graceful shutdown...
+2026-05-08 15:02:03,008 - openevolve.process_parallel - INFO - Graceful shutdown requested...
+2026-05-08 15:02:03,010 - openevolve.process_parallel - INFO - Shutdown requested, canceling remaining evaluations...
+2026-05-08 15:02:03,045 - openevolve.controller - INFO - Evolution stopped due to shutdown request
+2026-05-08 15:03:16,919 - openevolve.process_parallel - INFO - Stopped process pool
+2026-05-08 15:03:16,921 - openevolve.controller - INFO - Using tracked best program: ccbc056a-3f4a-4520-ba8a-c7ceff8cecae
+2026-05-08 15:03:16,922 - openevolve.controller - INFO - Evolution complete. Best program has metrics: neg_mean_error=-0.0788, neg_max_error=-0.4225, neg_std_error=-0.0821, combined_score=-0.2056
+2026-05-08 15:03:16,922 - openevolve.controller - INFO - Saved best program to openevolve_output\best\best_program.py with program info to openevolve_output\best\best_program_info.json
