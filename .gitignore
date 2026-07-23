@@ -17,6 +17,9 @@ notebooks/qem_cache/
 # Local figures / slide assets (kept local, regenerated from notebooks)
 Visuals/
 
+# Intro / scratch examples (kept local)
+applied_approach/
+
 # One-off / editor / OS cruft
 *.bak
 # MS Office lock/owner files

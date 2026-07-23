@@ -58,7 +58,6 @@ notebooks/
 ├── TREX_readout_mitigation.ipynb  Readout mitigation
 ├── smoke_*.py               18 validation scripts (test harness)
 └── qem_cache/               Pickled benchmark results (git-ignored, regenerated)
-applied_approach/            Intro Qiskit / Cirq examples
 toy_openevolve/              LLM-guided extrapolation experiment (appendix)
 refs/                        Reference papers
 presentations/               Slides (only the final PDF is versioned)
