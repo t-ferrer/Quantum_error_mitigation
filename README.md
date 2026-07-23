@@ -60,7 +60,7 @@ notebooks/
 └── qem_cache/               Pickled benchmark results (git-ignored, regenerated)
 applied_approach/            Intro Qiskit / Cirq examples
 toy_openevolve/              LLM-guided extrapolation experiment (appendix)
-formulas/, Visuals/, refs/   Figures, schematics, reference papers
+refs/                        Reference papers
 presentations/               Slides (only the final PDF is versioned)
 STATE.md                     Lab notebook / technical decisions
 ```
