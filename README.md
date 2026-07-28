@@ -61,7 +61,6 @@ toy_openevolve/              LLM-guided extrapolation experiment (appendix)
 refs/                        Reference papers
 presentations/               Slides (only the final PDF is versioned)
 qem_cache/                   Pickled benchmark results (git-ignored, regenerated)
-STATE.md                     Lab notebook / technical decisions
 ```
 
 ---
@@ -107,6 +106,28 @@ bootstrap cell that locates `qem` automatically, so they work unchanged.
 
 ---
 
+## Method & design decisions
+
+- **Benchmark:** Pauli-randomized mirror circuits (Proctor et al.), 2 qubits, depth ~10, averaged
+  over **≥ 20 random seeds** — a single random circuit is not a benchmark. Every run is seeded for
+  reproducibility.
+- **Validity regime:** mitigation is meaningful while `N·T·λ ≪ 1` (N = qubits, T = depth,
+  λ = per-gate error) — N and T are *not* interchangeable.
+- **Why Mitiq** as the reference library: it covers ZNE/PEC/CDR/DDD/readout, is frontend-agnostic
+  (Qiskit/Cirq/Braket/PennyLane), its `AdaExpFactory` is the official implementation of the DZNE
+  paper's adaptive Algorithm 3, and it is maintained by the Unitary Foundation. Alternatives set
+  aside:
+  - *Qiskit Runtime `resilience_level`* — black box, no control over scale factors / ansatz /
+    folding. Kept as a production baseline for the hardware phase.
+  - *qiskit-research* — research code, not a library.
+  - *PennyLane `mitigate_with_zne`* — a wrapper that calls Mitiq underneath.
+  - *native Cirq* — too incomplete (Mitiq uses Cirq only as its internal IR).
+- **Design rationale & pitfalls** are documented inline in the `qem/` module docstrings — see
+  `noise_models.py` (channel construction, machine-precision checks) and `pec_core.py` (the
+  linprog L1 solver, qubit-namespace remapping, both-CX-orientation guard).
+
+---
+
 ## Project status
 
 - ✅ **Static model** — complete family of noise models (up to the composite hardware model),
@@ -114,8 +135,6 @@ bootstrap cell that locates `qem` automatically, so they work unchanged.
 - 🔬 **Drift track (in progress)** — time-varying noise (OU) that breaks static ZNE/PEC; next
   steps: noise-model learning, PEA, VQA/QISMET.
 - ⏳ **Hardware target** — running on a real IBM QPU (Mitiq vs Qiskit Runtime `resilience_level`).
-
-See [STATE.md](STATE.md) for the detailed technical decisions and known pitfalls.
 
 ---
 
