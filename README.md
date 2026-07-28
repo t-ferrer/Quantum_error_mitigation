@@ -41,26 +41,26 @@ Per-method metrics logged: **bias, variance, MSE, overhead γ, shot budget**.
 ## Repository layout
 
 ```
-notebooks/
-├── qem/                     Core package (imported by every notebook)
-│   ├── noise_models.py      The NoiseSpecs (depol, AD, PD, thermal, composite, readout)
-│   ├── pec_core.py          PEC representations: L1 linprog solver + Takagi helper
-│   ├── benchmark.py         run_benchmark: noisy + 4 ZNE + PEC, N seeds, equal budget
-│   ├── drift.py             Inter-run OU drift (non-stationary noise)
-│   ├── readout.py           Readout models + TREX
-│   ├── circuits.py          Mirror circuits (Proctor et al.) + Mitiq executors
-│   ├── kraus.py             1-qubit Kraus generators
-│   ├── config.py            Global parameters (shots, seeds, budget, gates)
-│   └── cache.py             On-disk cache of benchmark results
+qem/                         Core package (importable from the repo root)
+├── noise_models.py          The NoiseSpecs (depol, AD, PD, thermal, composite, readout)
+├── pec_core.py              PEC representations: L1 linprog solver + Takagi helper
+├── benchmark.py             run_benchmark: noisy + 4 ZNE + PEC, N seeds, equal budget
+├── drift.py                 Inter-run OU drift (non-stationary noise)
+├── readout.py               Readout models + TREX
+├── circuits.py              Mirror circuits (Proctor et al.) + Mitiq executors
+├── kraus.py                 1-qubit Kraus generators
+├── config.py                Global parameters (shots, seeds, budget, gates)
+└── cache.py                 On-disk cache of benchmark results
+notebooks/                   Analysis notebooks (only .ipynb; locate qem via a bootstrap cell)
 ├── DZNE_VS_PEC_mitiq.ipynb  ZNE vs PEC benchmark (depolarizing case, cross-validation)
 ├── Composite_noise_DZNE.ipynb   ZNE vs PEC on the composite model
 ├── Composite_drift*.ipynb   ZNE/PEC/TREX under calibration drift
-├── TREX_readout_mitigation.ipynb  Readout mitigation
-├── smoke_*.py               18 validation scripts (test harness)
-└── qem_cache/               Pickled benchmark results (git-ignored, regenerated)
+└── TREX_readout_mitigation.ipynb  Readout mitigation
+tests/                       Smoke tests — run as `python -m tests.<name>` (see Quickstart)
 toy_openevolve/              LLM-guided extrapolation experiment (appendix)
 refs/                        Reference papers
 presentations/               Slides (only the final PDF is versioned)
+qem_cache/                   Pickled benchmark results (git-ignored, regenerated)
 STATE.md                     Lab notebook / technical decisions
 ```
 
@@ -80,14 +80,12 @@ python -m venv .venv
 
 ## Quickstart
 
-The package is imported as `qem` and lives in `notebooks/qem/`, so notebooks and smoke tests run
-**from the `notebooks/` directory**:
+The `qem` package sits at the repo root, so everything runs **from the repo root** — no path
+setup, no install:
 
 ```bash
-cd notebooks
-
-# 1. Sanity check that everything runs (fast):
-python smoke_drift_ou.py            # expect 5/5 OK
+# 1. Sanity check that everything runs (fast). Smoke tests run as modules:
+python -m tests.smoke_drift_ou      # expect 5/5 OK
 
 # 2. Run a benchmark in 3 lines:
 python -c "
@@ -97,10 +95,15 @@ print(df)
 "
 ```
 
+Running the smoke tests as `python -m tests.<name>` (from the repo root) puts the root on
+`sys.path`, so `from qem import ...` resolves with no path hacks. The 18 `smoke_*` scripts each
+print an `ALL OK` summary.
+
 `cached_benchmark` pickles the result into `qem_cache/`: the first call computes, later calls
 reload in milliseconds. The cache is auto-invalidated when the noise-model source code changes.
 
-For interactive exploration and figures, open the notebooks (`jupyter notebook`).
+For interactive exploration and figures, open the notebooks (`jupyter notebook`) — each has a
+bootstrap cell that locates `qem` automatically, so they work unchanged.
 
 ---
 

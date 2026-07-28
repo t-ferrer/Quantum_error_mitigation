@@ -9,7 +9,7 @@ venv/
 .ipynb_checkpoints/
 
 # Generated benchmark result cache (pickled run_benchmark outputs)
-notebooks/qem_cache/
+qem_cache/
 
 # Claude Code harness state
 .claude/
