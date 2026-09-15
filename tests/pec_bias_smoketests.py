@@ -56,7 +56,11 @@ def make_noise_model():
     return nm
 
 
-_BE = AerSimulator(noise_model=make_noise_model(), seed_simulator=42)
+# SEEDLESS on purpose (same fix as run_benchmark): a fixed seed_simulator restarts every
+# backend.run() from the same noise RNG stream, correlating PEC's importance samples -> biased
+# estimator, inflated variance. That artefact sits ON TOP of the cx(1,0) bias diagnosed here, so
+# the seeded numbers overstated the residual bias TEST D was trying to drive to zero.
+_BE = AerSimulator(noise_model=make_noise_model())
 
 
 def executor(circuit, shots=4000):

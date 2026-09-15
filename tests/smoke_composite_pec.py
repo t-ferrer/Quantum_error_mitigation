@@ -126,7 +126,11 @@ def build_composite_reps(circuit):
 
 
 print("\n=== (4) end-to-end PEC on seeds 0..2 (decisive unbiasedness test) ===")
-backend = AerSimulator(noise_model=SPEC_COMPOSITE.build_noise_model(), seed_simulator=42)
+# SEEDLESS on purpose (same fix as run_benchmark, see qem/benchmark.py): PEC calls backend.run()
+# thousands of times, and a fixed seed_simulator restarts every call from the same noise RNG stream
+# -> correlated noise across the importance samples -> BIASED estimator with inflated variance.
+# With seed_simulator=42 this section reported PEC ~ +0.09 above ideal and called it "unbiased".
+backend = AerSimulator(noise_model=SPEC_COMPOSITE.build_noise_model())
 for s in range(3):
     circ = make_benchmark_circuit(s)
     reps = build_composite_reps(circ)

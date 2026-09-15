@@ -18,7 +18,11 @@ from qiskit_aer import AerSimulator
 from qem import SPEC_COMPOSITE, make_benchmark_circuit, mitiq_executor, IDEAL
 from qem.benchmark import _assert_all_ops_represented
 
-backend = AerSimulator(noise_model=SPEC_COMPOSITE.build_noise_model(), seed_simulator=42)
+# SEEDLESS on purpose. NOTE (added after this file was written): the answer turned out to be
+# NEITHER (A) nor (B) -- the +0.06 came from the fixed `seed_simulator=42` this test itself used.
+# A frozen seed restarts every backend.run() from the same noise RNG stream, correlating PEC's
+# thousands of importance samples -> biased estimator. Fixed in run_benchmark; fixed here too.
+backend = AerSimulator(noise_model=SPEC_COMPOSITE.build_noise_model())
 
 # ---------------------------------------------------------------------------
 print("=== (B) what gate names appear in a mitiq-sampled PEC circuit? ===")
