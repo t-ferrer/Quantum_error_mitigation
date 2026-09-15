@@ -21,6 +21,7 @@ from qiskit_aer import AerSimulator
 from qiskit_aer.noise import NoiseModel as _NoiseModel
 
 from .circuits import make_benchmark_circuit, mitiq_executor
+from .fidelity import add_fidelity_columns
 from .config import (
     ADA_STEPS,
     IDEAL,
@@ -94,6 +95,8 @@ def run_benchmark(
     run_pec: bool = True,
     verbose: bool = True,
     drift_models: "list[_NoiseModel] | None" = None,
+    with_channel: bool = True,
+    channel: "dict[str, float] | None" = None,
 ):
     """Single-pass benchmark: noisy + 4 ZNE methods + PEC, on `seeds` circuits.
 
@@ -263,6 +266,18 @@ def run_benchmark(
             }
         )
     df = pd.DataFrame(rows).set_index(["noise", "method"])
+    # Channel-level method bias (infid_channel) + the same read off P(target) (infid_psucc).
+    # No extra shots, ~7s for 20 seeds -- negligible against this function's own runtime, hence the
+    # `with_channel=True` default. Set it False in tight loops that only read bias/mse: the drift
+    # sweeps call run_benchmark once per sigma with no cache available on that path, where the cost
+    # is paid in full every iteration. `infid_psucc` is free either way but travels with its
+    # counterpart, since alone it is only a relabelling of `mean`. See qem/fidelity.py.
+    # `channel` lets cached_benchmark hand in its own disk-cached mapping, so the numbers are
+    # computed once and persisted instead of being recomputed inline and thrown away.
+    if with_channel:
+        df = add_fidelity_columns(
+            df, spec, seeds, drift_models=drift_models, channel=channel
+        )
     if verbose:
         print(df.to_string())
         print()

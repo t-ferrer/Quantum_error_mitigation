@@ -5,6 +5,7 @@ from .cache import *
 from .circuits import *
 from .config import *
 from .drift import *
+from .fidelity import *
 from .kraus import *
 from .noise_models import *
 from .pec_core import *

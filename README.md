@@ -21,7 +21,13 @@ in-house layer (`qem/`) for building PEC representations and driving the benchma
   which removes the readout floor).
 - **Drift track** — Ornstein-Uhlenbeck drift of the device parameters (T1, T2, gate residual,
   readout) between runs, which invalidates static PEC's exact-channel assumption → motivating
-  re-learning. This is the research phase currently in progress.
+  re-learning. Readout drift included: TREX's calibrated λ_w goes stale exactly like PEC's reps,
+  and composing ZNE on top propagates the staleness rather than curing it.
+- **Channel-level metric** (`qem/fidelity.py`) — entanglement infidelity `1 - F_e`, computed from
+  the channel Aer actually applies. Shot-free and deterministic, so it separates a method's
+  systematic error from the estimator's sampling noise; gives the incomparable `NoiseSpec`
+  parameters a single common axis; and verifies PEC's quasi-probability identity **algebraically**
+  (one gate, zero shots) instead of statistically.
 
 ### Noise models covered (`qem/noise_models.py`)
 
@@ -34,7 +40,9 @@ in-house layer (`qem/`) for building PEC representations and driving the benchma
 | `SPEC_COMPOSITE` | `thermal ∘ mixed-unitary` (hardware model) | no | LP (exact) |
 | `SPEC_COMPOSITE_READOUT` | composite + readout | no | LP + readout floor |
 
-Per-method metrics logged: **bias, variance, MSE, overhead γ, shot budget**.
+Per-method metrics logged: **bias, variance, MSE, overhead γ, shot budget**, plus the two
+channel-level columns **`infid_channel`** (exact, shot-free method bias) and **`infid_psucc`**
+(the same method read off `P(target)`, for comparison on one axis).
 
 ---
 
@@ -46,6 +54,7 @@ qem/                         Core package (importable from the repo root)
 ├── pec_core.py              PEC representations: L1 linprog solver + Takagi helper
 ├── benchmark.py             run_benchmark: noisy + 4 ZNE + PEC, N seeds, equal budget
 ├── drift.py                 Inter-run OU drift (non-stationary noise)
+├── fidelity.py              Entanglement infidelity: channel metric, PEC verification
 ├── readout.py               Readout models + TREX
 ├── circuits.py              Mirror circuits (Proctor et al.) + Mitiq executors
 ├── kraus.py                 1-qubit Kraus generators
@@ -95,7 +104,7 @@ print(df)
 ```
 
 Running the smoke tests as `python -m tests.<name>` (from the repo root) puts the root on
-`sys.path`, so `from qem import ...` resolves with no path hacks. The 18 `smoke_*` scripts each
+`sys.path`, so `from qem import ...` resolves with no path hacks. The 22 `smoke_*` scripts each
 print an `ALL OK` summary.
 
 `cached_benchmark` pickles the result into `qem_cache/`: the first call computes, later calls
@@ -132,8 +141,11 @@ bootstrap cell that locates `qem` automatically, so they work unchanged.
 
 - ✅ **Static model** — complete family of noise models (up to the composite hardware model),
   DZNE-vs-PEC benchmark + readout/TREX. Done.
+- ✅ **Readout under drift** — static vs adaptive TREX, and the TREX ∘ ZNE composition. Done.
+- ✅ **Channel-level metric** — `qem/fidelity.py` + three smoke suites. Done.
 - 🔬 **Drift track (in progress)** — time-varying noise (OU) that breaks static ZNE/PEC; next
-  steps: noise-model learning, PEA, VQA/QISMET.
+  steps: noise-model learning, PEA, VQA/QISMET. `infid_channel` is the shot-free staleness
+  detector that step needs: mismatched representations move it from ~1e-6 to ~1e-2, per gate.
 - ⏳ **Hardware target** — running on a real IBM QPU (Mitiq vs Qiskit Runtime `resilience_level`).
 
 ---
