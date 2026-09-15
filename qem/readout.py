@@ -24,7 +24,7 @@ Twirled eigenvalue (readout twirling symmetrizes p0,p1 -> p_bar = (p0+p1)/2):
 This is the exact quantity TREX estimates by calibration and divides out.
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from itertools import combinations
 
 import numpy as np
@@ -39,6 +39,7 @@ __all__ = [
     "READOUT_REALISTIC",
     "READOUT_PERFECT",
     "trex_success_prob_from_counts",
+    "trex_success_prob_experimental",
 ]
 
 
@@ -92,6 +93,17 @@ class ReadoutSpec:
             val *= 1.0 - self.p0[i] - self.p1[i]
         return val
 
+    def twirled(self) -> "ReadoutSpec":
+        """The readout-TWIRLED (symmetrised) channel: p0 = p1 = (p0+p1)/2 per qubit.
+
+        Simulating THIS channel in Aer reproduces TREX's twirled measurement statistics WITHOUT
+        per-shot X-twirls -- twirling a bit-flip channel averages (p0,p1) -> p_bar, so raw counts
+        through the symmetric channel ARE the twirled counts (with real shot noise). lambda_w is
+        unchanged: 1 - 2*p_bar = 1 - (p0 + p1). Used by the experimental TREX pipeline.
+        """
+        pbar = tuple((a + b) / 2.0 for a, b in zip(self.p0, self.p1))
+        return replace(self, p0=pbar, p1=pbar, name=f"{self.name}Twirled")
+
 
 def trex_success_prob_from_counts(
     counts: dict, shots: int, target: str, readout_true: "ReadoutSpec", readout_calib: "ReadoutSpec"
@@ -127,6 +139,54 @@ def trex_success_prob_from_counts(
                 readout_true.lambda_support(w) / readout_calib.lambda_support(w) if w else 1.0
             )
             val += (1.0 / 2**n) * sign * ratio * zw
+    return val
+
+
+def _zw_from_counts(counts: dict, shots: int, n: int) -> dict:
+    """{w: <Z_w>} for every subset w of range(n), from a Qiskit little-endian counts dict.
+
+    <Z_w> = sum_x (-1)^{parity(x restricted to w)} P(x). The empty set gives <Z_{}> = 1 (the total
+    probability). `shots` normalises the counts.
+    """
+    probs = {}  # {(x0,...,x_{n-1}): P(x)}
+    for key, c in counts.items():
+        s = key.replace(" ", "")
+        x = tuple(int(s[n - 1 - i]) for i in range(n))
+        probs[x] = probs.get(x, 0.0) + c / shots
+    zw = {}
+    for r in range(n + 1):
+        for w in combinations(range(n), r):
+            zw[w] = sum(
+                pr * (-1 if sum(x[i] for i in w) % 2 else 1) for x, pr in probs.items()
+            )
+    return zw
+
+
+def trex_success_prob_experimental(
+    exec_counts: dict, calib_counts: dict, target: str, exec_shots: int, calib_shots: int
+) -> float:
+    """EXPERIMENTAL TREX-corrected P(target) from real (twirled) Aer measurements.
+
+    Both count dicts come from the TWIRLED channel (= the readout simulated via ReadoutSpec.twirled()),
+    so readout acts as a clean per-Z_w scaling lambda_w, but lambda_w is now MEASURED (shot noise), not
+    analytic -> honest scatter (unlike trex_success_prob_from_counts):
+        - `exec_counts`  : mirror(target) run through gate + twirled-DRIFTED readout
+                           -> <Z_w>_exec = lambda_w^true * <Z_w>_gate  (+ shot noise),
+        - `calib_counts` : |0...0> run through the twirled CALIBRATION readout -> <Z_w>_calib = lambda_w^calib
+                           (since <Z_w>_ideal on |0...0> = +1) (+ calibration shot noise).
+    TREX divides:  P(target) = 2^-n sum_w (-1)^{t.w} <Z_w>_exec / <Z_w>_calib.  The calibration readout
+    selects the regime: calib = drifted -> ADAPTIVE (recalibrated per run); calib = frozen nominal ->
+    STATIC (stale); calib = perfect (<Z_w>_calib = 1) -> the un-corrected NOISY floor.
+    """
+    n = len(target)
+    tbit = [int(target[n - 1 - i]) for i in range(n)]
+    zx = _zw_from_counts(exec_counts, exec_shots, n)
+    zc = _zw_from_counts(calib_counts, calib_shots, n)
+    val = 0.0
+    for w, zx_w in zx.items():
+        sign = -1 if sum(tbit[i] for i in w) % 2 else 1  # (-1)^{t.w}
+        lam = zc[w] if w else 1.0  # <Z_{}> == 1 exactly; the identity term needs no correction
+        val += (1.0 / 2**n) * sign * (zx_w / lam)
     return val
 
 
